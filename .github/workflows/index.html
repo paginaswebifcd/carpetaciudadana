@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clase Carpeta Ciudadana</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f5f5f5;
+    color: #333;
+  }
+  header {
+    background: #005f73;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+  }
+  main {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 10px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  }
+  h2 {
+    color: #0a9396;
+  }
+  section {
+    margin-bottom: 30px;
+  }
+  button {
+    background: #94d2bd;
+    border: none;
+    padding: 10px 15px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  button:hover {
+    background: #0a9396;
+    color: #fff;
+  }
+  .quiz-question {
+    margin: 15px 0;
+  }
+  input[type="text"] {
+    padding: 5px;
+    width: 60%;
+  }
+  #mapaPostIts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .postit {
+    background: #ffb703;
+    padding: 10px;
+    border-radius: 5px;
+    width: 180px;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Clase Interactiva: Carpeta Ciudadana</h1>
+</header>
+
+<main>
+
+  <!-- 1. Trivia Ciudadana -->
+  <section id="trivia">
+    <h2>1️⃣ Trivia Ciudadana</h2>
+    <div id="quiz-container">
+      <div class="quiz-question" id="question-text">¿Qué es la Carpeta Ciudadana y para qué sirve?</div>
+      <input type="text" id="quiz-answer" placeholder="Escribe tu respuesta aquí">
+      <button onclick="checkAnswer()">Responder</button>
+      <p id="quiz-feedback"></p>
+    </div>
+  </section>
+
+  <!-- 2. Misión Trámite Real -->
+  <section id="mision">
+    <h2>2️⃣ Misión Trámite Real</h2>
+    <p>Selecciona un caso práctico:</p>
+    <button onclick="showCaso(1)">María descarga su certificado de empadronamiento</button>
+    <button onclick="showCaso(2)">Pedro recibe notificación de Hacienda</button>
+    <button onclick="showCaso(3)">Lucía actualiza su domicilio</button>
+    <button onclick="showCaso(4)">Carlos envía un documento firmado digitalmente</button>
+    <div id="caso-output" style="margin-top:15px;"></div>
+  </section>
+
+  <!-- 3. Detectives de Seguridad -->
+  <section id="seguridad">
+    <h2>3️⃣ Detectives de Seguridad</h2>
+    <p>Lee la situación y elige la acción correcta:</p>
+    <div>
+      <p>María recibe un correo sospechoso pidiendo actualizar su Cl@ve con enlaces.</p>
+      <button onclick="checkSecurity('ignorar')">Ignorar y eliminar el correo </button>
+      <button onclick="checkSecurity('clic')">Hacer clic en el enlace </button>
+      <button onclick="checkSecurity('responder')">Responder con datos personales </button>
+      <p id="security-feedback"></p>
+    </div>
+  </section>
+
+  <!-- 4. Mapa de Habilidades Digitales -->
+  <section id="mapa">
+    <h2>4️⃣ Mapa de Habilidades Digitales</h2>
+    <p>Escribe una función que dominas y otra que quieres practicar:</p>
+    <input type="text" id="funcionDomina" placeholder="Función que dominas">
+    <input type="text" id="funcionPracticar" placeholder="Función que quieres practicar">
+    <button onclick="agregarPostIt()">Agregar al Mapa</button>
+    <div id="mapaPostIts"></div>
+  </section>
+
+</main>
+
+<script>
+  // Trivia
+  const correctAnswer = "Es un portal para acceder a servicios y trámites electrónicos del ciudadano";
+  function checkAnswer() {
+    const answer = document.getElementById('quiz-answer').value.trim();
+    const feedback = document.getElementById('quiz-feedback');
+    if(answer.toLowerCase() === correctAnswer.toLowerCase()) {
+      feedback.textContent = "¡Correcto! 🎉";
+      feedback.style.color = "green";
+    } else {
+      feedback.textContent = "No es correcto. Intenta de nuevo.";
+      feedback.style.color = "red";
+    }
+  }
+
+  // Misión Trámite Real
+  function showCaso(caso) {
+    const output = document.getElementById('caso-output');
+    let text = "";
+    switch(caso) {
+      case 1:
+        text = "María debe acceder con Cl@ve PIN o Permanente, ir a la sección de certificados y descargar el certificado de empadronamiento.";
+        break;
+      case 2:
+        text = "Pedro debe entrar en su Carpeta Ciudadana, revisar notificaciones, abrir el mensaje de Hacienda y seguir las instrucciones oficiales.";
+        break;
+      case 3:
+        text = "Lucía debe iniciar sesión, ir a 'Datos personales', actualizar el domicilio y confirmar los cambios.";
+        break;
+      case 4:
+        text = "Carlos debe subir el documento, seleccionar firma digital, verificar su Cl@ve y enviar el documento firmado.";
+        break;
+    }
+    output.textContent = text;
+  }
+
+  // Detectives de Seguridad
+  function checkSecurity(opcion) {
+    const feedback = document.getElementById('security-feedback');
+    if(opcion === 'ignorar') {
+      feedback.textContent = "¡Correcto! Siempre hay que ignorar correos sospechosos. ";
+      feedback.style.color = "green";
+    } else {
+      feedback.textContent = "Incorrecto. No se debe interactuar con correos sospechosos. ";
+      feedback.style.color = "red";
+    }
+  }
+
+  // Mapa de Habilidades
+  function agregarPostIt() {
+    const domina = document.getElementById('funcionDomina').value.trim();
+    const practicar = document.getElementById('funcionPracticar').value.trim();
+    const container = document.getElementById('mapaPostIts');
+
+    if(domina) {
+      const postitDomina = document.createElement('div');
+      postitDomina.className = "postit";
+      postitDomina.textContent = "Domina: " + domina;
+      container.appendChild(postitDomina);
+      document.getElementById('funcionDomina').value = "";
+    }
+
+    if(practicar) {
+      const postitPracticar = document.createElement('div');
+      postitPracticar.className = "postit";
+      postitPracticar.textContent = "Practicar: " + practicar;
+      container.appendChild(postitPracticar);
+      document.getElementById('funcionPracticar').value = "";
+    }
+  }
+</script>
+
+</body>
+</html>
